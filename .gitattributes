@@ -1,0 +1,15 @@
+# Normalize line endings: store text as LF in the repo, silence CRLF warnings
+* text=auto eol=lf
+
+# Explicit text types
+*.py    text
+*.cpp   text
+*.md    text
+*.csv   text
+*.txt   text
+
+# Binary assets (never touch line endings / never diff as text)
+*.docx  binary
+*.png   binary
+*.zip   binary
+*.exe   binary
