@@ -1,0 +1,113 @@
+======================================================================================================================
+IN-RAM WALL-CLOCK (measured) + PROBE COUNTS
+======================================================================================================================
+----------------------------------------------------------------------------------------------------------------------
+syn_linear  (n=1,000,000)
+dataset           algo           ns/query vs stl_lb  data_prb  max_prb model_prb  err        detect
+                  stl_lb            143.7     1.00x      0.00        0      0.00    0              
+                  binary            126.8     0.88x     18.93       20      0.00    0              
+                  interp              7.7     0.05x      1.01        2      0.00    0              
+                  mmas_closed        24.1     0.17x      1.01        2      0.00    0        linear
+                  pgm_pla            15.2     0.11x      1.00        1      1.00    0        segs=1
+----------------------------------------------------------------------------------------------------------------------
+syn_quadratic  (n=1,000,000)
+dataset           algo           ns/query vs stl_lb  data_prb  max_prb model_prb  err        detect
+                  stl_lb            153.1     1.00x      0.00        0      0.00    0              
+                  binary            136.2     0.89x     19.47       20      0.00    0              
+                  interp            691.0     4.51x     29.84      896      0.00    0              
+                  mmas_closed        61.1     0.40x      1.00        1      0.00    0         power
+                  pgm_pla            76.2     0.50x      5.66        7      6.81    0      segs=104
+----------------------------------------------------------------------------------------------------------------------
+syn_exponential  (n=732,523)
+dataset           algo           ns/query vs stl_lb  data_prb  max_prb model_prb  err        detect
+                  stl_lb            147.1     1.00x      0.00        0      0.00    0              
+                  binary            140.1     0.95x     19.05       20      0.00    0              
+                  interp        1333832.3  9069.37x 100142.28   342740      0.00    0              
+                  mmas_closed       138.5     0.94x     19.05       20      0.00    0        binary
+                  pgm_pla            84.0     0.57x      5.68        7      7.81    0      segs=216
+----------------------------------------------------------------------------------------------------------------------
+syn_uniform  (n=1,000,000)
+dataset           algo           ns/query vs stl_lb  data_prb  max_prb model_prb  err        detect
+                  stl_lb            150.5     1.00x      0.00        0      0.00    0              
+                  binary            138.5     0.92x     19.45       20      0.00    0              
+                  interp             87.2     0.58x      4.05       10      0.00    0              
+                  mmas_closed       100.9     0.67x      4.05       10      0.00    0        linear
+                  pgm_pla            86.3     0.57x      5.62        7      8.56    0      segs=353
+----------------------------------------------------------------------------------------------------------------------
+syn_adversarial  (n=99,993)
+dataset           algo           ns/query vs stl_lb  data_prb  max_prb model_prb  err        detect
+                  stl_lb             90.0     1.00x      0.00        0      0.00    0              
+                  binary             68.2     0.76x     15.71       17      0.00    0              
+                  interp         109242.1  1213.80x   8395.27    16257      0.00    0              
+                  mmas_closed        74.3     0.83x     15.71       17      0.00    0        binary
+                  pgm_pla            32.0     0.36x      2.94        7      2.00    0        segs=2
+----------------------------------------------------------------------------------------------------------------------
+real_filesizes  (n=80,950)
+dataset           algo           ns/query vs stl_lb  data_prb  max_prb model_prb  err        detect
+                  stl_lb             91.8     1.00x      0.00        0      0.00    0              
+                  binary             72.2     0.79x     15.91       17      0.00    0              
+                  interp         377293.9  4112.19x  29404.08    47246      0.00    0              
+                  mmas_closed        75.1     0.82x     15.91       17      0.00    0        binary
+                  pgm_pla            62.3     0.68x      5.61        7      5.77    0       segs=52
+----------------------------------------------------------------------------------------------------------------------
+real_mtimes  (n=9,489)
+dataset           algo           ns/query vs stl_lb  data_prb  max_prb model_prb  err        detect
+                  stl_lb             62.2     1.00x      0.00        0      0.00    0              
+                  binary             37.6     0.60x     12.76       14      0.00    0              
+                  interp           4847.5    77.90x    380.02     1602      0.00    0              
+                  mmas_closed        55.4     0.89x     12.76       14      0.00    0        binary
+                  pgm_pla            56.6     0.91x      5.55        7      6.00    0       segs=63
+
+======================================================================================================================
+EXTRAPOLATED LATENCY WHEN A PROBE IS EXPENSIVE (total probes x per-probe cost)
+total probes = data_probes + model_probes ; lower is better; winner in [brackets]
+======================================================================================================================
+----------------------------------------------------------------------------------------------------------------------
+syn_linear
+algo           tot_probes      RAM-miss           SSD       Network
+binary              18.93         1.9us       946.5us       18.93ms
+interp               1.01       [101ns]      [50.5us]      [1.01ms]
+mmas_closed          1.01       [101ns]      [50.5us]      [1.01ms]
+pgm_pla              2.00         200ns       100.0us        2.00ms
+----------------------------------------------------------------------------------------------------------------------
+syn_quadratic
+algo           tot_probes      RAM-miss           SSD       Network
+binary              19.47         1.9us       973.5us       19.47ms
+interp              29.84         3.0us        1.49ms       29.84ms
+mmas_closed          1.00       [100ns]      [50.0us]      [1.00ms]
+pgm_pla             12.47         1.2us       623.5us       12.47ms
+----------------------------------------------------------------------------------------------------------------------
+syn_exponential
+algo           tot_probes      RAM-miss           SSD       Network
+binary              19.05         1.9us       952.5us       19.05ms
+interp          100142.28       10.01ms     5007.11ms   100142.28ms
+mmas_closed         19.05         1.9us       952.5us       19.05ms
+pgm_pla             13.49       [1.3us]     [674.5us]     [13.49ms]
+----------------------------------------------------------------------------------------------------------------------
+syn_uniform
+algo           tot_probes      RAM-miss           SSD       Network
+binary              19.45         1.9us       972.5us       19.45ms
+interp               4.05       [405ns]     [202.5us]      [4.05ms]
+mmas_closed          4.05       [405ns]     [202.5us]      [4.05ms]
+pgm_pla             14.18         1.4us       709.0us       14.18ms
+----------------------------------------------------------------------------------------------------------------------
+syn_adversarial
+algo           tot_probes      RAM-miss           SSD       Network
+binary              15.71         1.6us       785.5us       15.71ms
+interp            8395.27       839.5us      419.76ms     8395.27ms
+mmas_closed         15.71         1.6us       785.5us       15.71ms
+pgm_pla              4.94       [494ns]     [247.0us]      [4.94ms]
+----------------------------------------------------------------------------------------------------------------------
+real_filesizes
+algo           tot_probes      RAM-miss           SSD       Network
+binary              15.91         1.6us       795.5us       15.91ms
+interp           29404.08        2.94ms     1470.20ms    29404.08ms
+mmas_closed         15.91         1.6us       795.5us       15.91ms
+pgm_pla             11.38       [1.1us]     [569.0us]     [11.38ms]
+----------------------------------------------------------------------------------------------------------------------
+real_mtimes
+algo           tot_probes      RAM-miss           SSD       Network
+binary              12.76         1.3us       638.0us       12.76ms
+interp             380.02        38.0us       19.00ms      380.02ms
+mmas_closed         12.76         1.3us       638.0us       12.76ms
+pgm_pla             11.55       [1.2us]     [577.5us]     [11.55ms]

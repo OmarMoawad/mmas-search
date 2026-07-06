@@ -1,0 +1,6 @@
+# build artifacts / data / caches
+*.exe
+*.obj
+data/
+__pycache__/
+*.pyc
